@@ -6,12 +6,12 @@ from django.urls import reverse
 
 class Blog(models.Model):
     title = models.CharField(max_length=225)
-    slug = models.SlugField(unique=True, null=True, blank=True, max_length=225)
-    description = models.TextField()
+    slug = models.SlugField(unique=True, max_length=225, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    image = models.ImageField(upload_to="BlogPhotos/", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    image = models.ImageField(upload_to="BlogPhotos/")
-
+    
     def get_absolute_url(self):
         return reverse("single", kwargs={"slug": self.slug})
 
@@ -28,11 +28,11 @@ class Blog(models.Model):
 class Comment(models.Model):    
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    name = models.CharField(max_length=225)
+    name = models.CharField(max_length=225, null=True)
     email = models.EmailField(null=True, blank=True)
     website = models.URLField(null=True, blank=True)
     comment = models.TextField()
-    created_at = models.DateTimeField(null=True, auto_now_add=True)
+    created_at = models.DateTimeField()
 
     def __str__(self):
         return self.name
