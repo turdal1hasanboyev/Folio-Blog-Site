@@ -31,16 +31,24 @@ class Comment(models.Model):
     name = models.CharField(max_length=225, null=True)
     email = models.EmailField(null=True, blank=True)
     website = models.URLField(null=True, blank=True)
-    comment = models.TextField()
-    created_at = models.DateTimeField()
+    comment = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
     
 
-class Portfolio(models.Model):
-    image = models.ImageField(upload_to="PortfolioPhotos/")
+class Category(models.Model):
+    title = models.CharField(max_length=225)
 
     def __str__(self):
-        return ""
+        return self.title
+    
+
+class Portfolio(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="PortfolioPhotos/", null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.category}"
     

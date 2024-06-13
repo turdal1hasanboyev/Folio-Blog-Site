@@ -1,16 +1,18 @@
 from django.shortcuts import render, redirect
-from .models import Blog, Portfolio, Comment, User
+from .models import Blog, Portfolio, Comment, User, Category
 
 
 def index(request):
     user = User.objects.get(id=1)
     blogs = Blog.objects.all().order_by('-id')[:3]
     portfolios = Portfolio.objects.all().order_by('-id')
+    categories = Category.objects.all().order_by('title')
 
     context = {
         'user': user,
         'blogs': blogs,
         'portfolios': portfolios,
+        "categories": categories,
     }
 
     return render(request, 'index.html', context)
