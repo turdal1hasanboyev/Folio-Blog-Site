@@ -28,7 +28,6 @@ urlpatterns = [
 
     path('', include('apps.folio.urls')),
     path('user/', include('apps.user.urls')),
-    path('contact/', include('apps.get_in_touch.urls')),
 
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),

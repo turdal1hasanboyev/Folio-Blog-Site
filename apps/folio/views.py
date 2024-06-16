@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Blog, Portfolio, Comment, User, Category
+from .models import Blog, Portfolio, Comment, User, Category, GetInTouch
 
 
 def index(request):
@@ -7,6 +7,21 @@ def index(request):
     blogs = Blog.objects.all().order_by('-id')[:3]
     portfolios = Portfolio.objects.all().order_by('-id')
     categories = Category.objects.all().order_by('title')
+
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        subject = request.POST.get("subject")
+        message = request.POST.get("message")
+
+        GetInTouch.objects.create(
+            name=name,
+            email=email,
+            subject=subject,
+            message=message,
+        )
+
+        return redirect('/')
 
     context = {
         'user': user,
