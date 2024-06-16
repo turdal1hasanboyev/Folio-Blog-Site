@@ -33,14 +33,14 @@
                   <h6 class="mb-30">{{ blog.comment_set.count }} Comments</h6>
                   <ul class="entry-comments-list list-unstyled">
                     <li>
-                      {% for com in comments %}
+                      {% for comment in comments %}
                       <div class="entry-comments-item">
-                        <img src="{{ com.user.profile_photo.url }}" class="entry-comments-avatar"
+                        <img src="{{ comment.user.profile_photo.url }}" class="entry-comments-avatar"
                           alt="Image placeholder">
                         <div class="entry-comments-body">
-                          <span class="entry-comments-author">{{ com.user.get_full_name }}</span>
-                          <span><a href="{% url 'single' blog.slug %}">{{ com.created_at }}</a></span>
-                          <p class="mb-10">{{ com.comment }}</p>
+                          <span class="entry-comments-author">{{ comment.user.get_full_name }}</span>
+                          <span><a href="{% url 'single' blog.slug %}">{{ comment.created_at }}</a></span>
+                          <p class="mb-10">{{ comment.comment }}</p>
                           <a class="rep" href="{% url 'single' blog.slug %}">Reply</a>
                         </div>
                       </div>
@@ -55,7 +55,9 @@
             <div class="col-lg-12">
               <div class="cmt padDiv">
                 <form id="comment-form" method="post" action="#comment" role="form">
+
                   {% csrf_token %}
+                  
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">

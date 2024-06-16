@@ -123,8 +123,8 @@
 
           <ul class="nav list-unstyled" id="portfolio-flters">
             <li class="filter filter-active" data-filter=".all">All</li>
-            {% for cat in categories %}
-            <li class="filter" data-filter=".{{ cat.title }}">{{ cat.title }}</li>
+            {% for category in categories %}
+            <li class="filter" data-filter=".{{ category.title }}">{{ category.title }}</li>
             {% endfor %}
           </ul>
 
@@ -132,10 +132,10 @@
 
         <div class="portfolio-container">
 
-          {% for port in portfolios %}
+          {% for portfolio in portfolios %}
           <div class="col-lg-4 col-md-6 portfolio-thumbnail all branding uikits webdesign">
-            <a class="popup-img" href="{{ port.image.url }}">
-              <img src="{{ port.image.url }}" alt="img">
+            <a class="popup-img" href="{{ portfolio.image.url }}">
+              <img src="{{ portfolio.image.url }}" alt="img">
             </a>
           </div>
           {% endfor %}
@@ -203,7 +203,7 @@
         </div>
 
         <div class="col-lg-6">
-          <form action="/" method="post" role="form" class="contactForm">
+          <form action="#get_in_touch" method="post" role="form" class="contactForm">
 
             {% csrf_token %}
 
