@@ -3,11 +3,9 @@ from .models import Blog, Portfolio, Comment, User, Category, GetInTouch
 
 
 def index(request):
-    cat = request.GET.get('cat')
-
     user = User.objects.get(id=1)
     blogs = Blog.objects.all().order_by('-id')[:3]
-    portfolios = Portfolio.objects.all().order_by('-id')
+    portfolios = Portfolio.objects.all().order_by('-id')[:6]
     categories = Category.objects.all().order_by('title')
 
     if request.method == "POST":
@@ -25,9 +23,6 @@ def index(request):
 
         return redirect('/')
     
-    if cat:
-        portfolios = portfolios.filter(category=cat)
-
     context = {
         'user': user,
         'blogs': blogs,
@@ -41,10 +36,8 @@ def single(request, slug):
     blog = Blog.objects.get(slug__exact=slug)
 
     comments = Comment.objects.filter(blog_id=blog.id)
-    if request.method == "POST":
-        if not request.user.is_authenticated:
-            return redirect("single")
-        
+
+    if request.method == "POST":   
         name = request.POST.get("name")
         email = request.POST.get("email")
         comment = request.POST.get("comment")
